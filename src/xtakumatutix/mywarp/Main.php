@@ -50,7 +50,7 @@ Class Main extends PluginBase implements Listener {
                         $sender->sendMessage("§a >> §fMyWarpItemを入手しました！！ §7(地点名:".$args[0]." X:".$x." Y:".$y." Z:".$z." World:".$level.")");
                         return true;
                     }else{
-                        $sender->sendMessage("§c >> §fイベントリにはいらない");
+                        $sender->sendMessage("§c >> §fインベントリに空きがありません");
                         return true;
                     }
                 }else{
@@ -58,7 +58,7 @@ Class Main extends PluginBase implements Listener {
                     return true;
                 }
             }else{
-                $sender->sendMessage("§c >> §fお金がたりません");
+                $sender->sendMessage("§c >> §fお金がたりません <3000KG必要です>");
                 return true;
             }
         }else{
