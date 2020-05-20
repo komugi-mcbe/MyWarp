@@ -1,0 +1,9 @@
+---
+name: MyWarp
+main: xtakumatutix\mywarp\Main
+version: 1.0.0
+api: 3.0.0
+commands:
+  setmywarp:
+    description: MyWarpを登録します <3000KG必要>
+...
