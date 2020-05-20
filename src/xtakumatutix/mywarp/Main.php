@@ -33,7 +33,7 @@ Class Main extends PluginBase implements Listener {
     {
         if ($sender instanceof Player) {
         	$mymoney = EconomyAPI::getInstance()->myMoney($sender);
-        	if ($mymoney < 1500){
+        	if (!$mymoney < 3000){
         		$x = $sender->getFloorX();
                 $y = $sender->getFloorY();
                 $z = $sender->getFloorZ();
@@ -50,17 +50,19 @@ Class Main extends PluginBase implements Listener {
                         $tag->setTag(new StringTag("level", $level, true));
                         $item->setNamedTag($tag);
                         $sender->getInventory()->addItem($item);
+                        EconomyAPI::getInstance()->reduceMoney($sender, 3000);
+                        $sender->sendMessage("§a >> §fMyWarpItemを入手しました！！ §7(X:{$x} Y:{$y} Z:{$z} World:{$level})");
                         return true;
                 	}else{
-                		$sender->sendMessage("イベントリにはいらない");
+                		$sender->sendMessage("§c >> §fイベントリにはいらない");
                 		return true;
                 	}
                 }else{
-                	$sender->sendMessage("ワープ名を入力してください");
+                	$sender->sendMessage("§c >> §fワープ名を入力してください");
                 	return true;
                 }
             }else{
-            	$sender->sendMessage("お金がたりません");
+            	$sender->sendMessage("§c >> §fお金がたりません");
             	return true;
             }
         }else{
@@ -77,12 +79,14 @@ Class Main extends PluginBase implements Listener {
         if ($itemid === 445) {
             $tag = $item->getNamedTag();
             if ($tag->offsetExists("x")) {
-                    $tpx = $tag->getTag('x');
-                    $tpy = $tag->getTag('y');
-                    $tpz = $tag->getTag('z');
-                    $tplevel = $tag->getString('level');
+                    $tpx = $tag->getInt('x');
+                    $tpy = $tag->getInt('y');
+                    $tpz = $tag->getInt('z');
+                    $tplevel = $this->getServer()->getLevelByName($tag->getString('level'));
+                    $tplevelname = $tag->getString('level');
                     $tpos = new Position($tpx, $tpy, $tpz, $tplevel);
                     $player->teleport($tpos);
+                    $player->sendMessage("§a >> §fX:{$tpx} Y:{$tpy} Z:{$tpz} World:{$tplevelname} にテレポートしました！");
             }
         }
     }
